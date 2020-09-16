@@ -58,10 +58,18 @@ void main(List<String> arguments) {
 
   File file = File(dir.path + '/my_file.txt');
 
+  writeFile(file);
   readFile(file);
 
 
 
+}
+
+void writeFile(File file){
+  RandomAccessFile raf = file.openSync(mode: FileMode.write);
+  raf.writeStringSync("Hello World!\n\nHow are you?");
+  raf.flushSync();
+  raf.closeSync();
 }
 
 void readFile(File file){
@@ -72,7 +80,7 @@ void readFile(File file){
   print("Reading file...");
   print(file.readAsStringSync());
 
-  print("Reading Bytes...");
+  /*print("Reading Bytes...");
   List values = file.readAsBytesSync();
-  values.forEach((value) => print(value));
+  values.forEach((value) => print(value));*/
 }
