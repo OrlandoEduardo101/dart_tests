@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:hello_world/hello_world.dart' as hello_world;
 import 'package:hello_world/io_lib.dart';
@@ -6,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 void main(List<String> arguments) {
   //print('Hello world: ${hello_world.calculate()}!');
-  var url = 'https://www.google.com';
+  //var url = 'https://www.google.com';
   //http.get(url).then((value) => print('response: ${value.body} ${value.statusCode}'));
 
   //io_lib();
@@ -53,21 +54,27 @@ void main(List<String> arguments) {
    print('Size: ${stat.size} \n');
   });*/
 
-  Directory dir = Directory.current;
-  print(dir.path);
+  Map<String, String> data = Map();
+  data.putIfAbsent('1', () => 'fala');
+  data.putIfAbsent('2', () => 'zeze');
+  data.putIfAbsent('3', () => 'bom');
+  data.putIfAbsent('4', () => 'dia');
+  data.putIfAbsent('5', () => 'cara');
 
+  Directory dir = Directory.current;
+  //print(dir.path);
   File file = File(dir.path + '/my_file.txt');
 
-  writeFile(file);
+  writeFile(file, json.encode(data).toString());
   readFile(file);
 
 
 
 }
 
-void writeFile(File file){
+void writeFile(File file, String data){
   RandomAccessFile raf = file.openSync(mode: FileMode.write);
-  raf.writeStringSync("Hello World!\n\nHow are you?");
+  raf.writeStringSync(data);
   raf.flushSync();
   raf.closeSync();
 }
