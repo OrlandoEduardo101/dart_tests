@@ -38,7 +38,7 @@ void main(List<String> arguments) {
     print('not found');
   }*/
 
-  var directory = Directory.current;
+  /*var directory = Directory.current;
   print(directory);
   List<FileSystemEntity> list = directory.listSync(recursive: true);
   print('${list.length} \n\n ');
@@ -51,8 +51,28 @@ void main(List<String> arguments) {
    print('type: ${stat.type}');
    print('Permission: ${stat.mode}');
    print('Size: ${stat.size} \n');
-  });
+  });*/
+
+  Directory dir = Directory.current;
+  print(dir.path);
+
+  File file = File(dir.path + '/my_file.txt');
+
+  readFile(file);
 
 
 
+}
+
+void readFile(File file){
+  if(!file.existsSync()){
+    print("not found");
+    return;
+  }
+  print("Reading file...");
+  print(file.readAsStringSync());
+
+  print("Reading Bytes...");
+  List values = file.readAsBytesSync();
+  values.forEach((value) => print(value));
 }
